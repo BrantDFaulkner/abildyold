@@ -19,5 +19,6 @@
   <%= @goal.category %>
 </p>
 
+<%= link_to 'Join Goal', user_participations_path(@goal), method: :post %> |
 <%= link_to 'Edit', edit_goal_path(@goal) %> |
 <%= link_to 'Back', goals_path %>
