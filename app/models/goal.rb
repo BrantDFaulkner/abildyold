@@ -1,4 +1,12 @@
 class Goal < ActiveRecord::Base
-  has_and_belongs_to_many :users,  join_table: :participations
+  has_many :participations
+  has_many :users, through: :participations
+
+  def save_create_participation(goal, user_id)
+    goal.save
+    Participation.create(goal_id: goal.id, status: "Creator", user_id: user_id)
+  end
+
+
 end
 

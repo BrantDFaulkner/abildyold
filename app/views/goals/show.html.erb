@@ -20,16 +20,23 @@
 </p>
 
 
+
+  <% @participations.each do |participation| %>
+    <div>
+      <%= participation.user.email %> |
+      <%= participation.status %>
+    </div>
+  <% end %>
+
+
+
 <%= form_for(@participation) do |f| %>
-  <input id="parent_id" name="participation[goal_id]" type="hidden" value=<%= @goal.id %> />
-  <input id="parent_id" name="participation[user_id]" type="hidden" value=<%= current_user.id %> />
-  <input id="parent_id" name="participation[status]" type="hidden" value="Pending" />
-  <!-- !flag can't get rails to nest the paramaiters inside participation -->
-  <%#= hidden_field_tag(:goal_id, @goal.id) %>
-  <%#= hidden_field_tag(:user_id, current_user.id) %>
-  <%#= hidden_field_tag(:status, "Pending") %>
-  <%= f.submit %>
+  <%= hidden_field_tag("participation[goal_id]", @goal.id) %>
+  <%= hidden_field_tag("participation[user_id]", current_user.id) %>
+  <%= hidden_field_tag("participation[status]", "Pending Request") %>
+  <%= f.submit "Request to Join" %>
 <% end %>
+
 
 
 <%= link_to 'Edit', edit_goal_path(@goal) %> |

@@ -15,8 +15,6 @@ class ParticipationsController < ApplicationController
 
   private
     def participation_params
-      puts "===================================="
-      p params
       params.require(:participation).permit(:goal_id, :user_id, :status)
     end
 

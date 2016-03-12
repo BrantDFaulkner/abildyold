@@ -8,10 +8,9 @@ class GoalsController < ApplicationController
   end
 
   # GET /goals/1
-  # GET /goals/1.json
   def show
     @participation = Participation.new
-    @user = current_user
+    @participations = @goal.participations
   end
 
   # GET /goals/new
@@ -24,11 +23,9 @@ class GoalsController < ApplicationController
   end
 
   # POST /goals
-  # POST /goals.json
   def create
     @goal = Goal.new(goal_params)
-    if @goal.save
-      Participation.create(goal_id: @goal.id, status: "Creator", user_id: current_user.id)
+    if @goal.save_create_participation(@goal, current_user.id)
       redirect_to @goal, notice: 'Goal was successfully created.'
     else
       render :new
@@ -36,7 +33,6 @@ class GoalsController < ApplicationController
   end
 
   # PATCH/PUT /goals/1
-  # PATCH/PUT /goals/1.json
   def update
     respond_to do |format|
       if @goal.update(goal_params)
@@ -50,7 +46,6 @@ class GoalsController < ApplicationController
   end
 
   # DELETE /goals/1
-  # DELETE /goals/1.json
   def destroy
     @goal.destroy
     respond_to do |format|
