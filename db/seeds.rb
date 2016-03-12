@@ -15,7 +15,7 @@ Participation.create!(goal_id: 1, user_id: 1, status: "creator")
 
 100.times do
   user = User.create!(email: Faker::Internet.email, password: Faker::Internet.password)
-  goal = Goal.create!(title: Faker::Lorem.sentence, description: Faker::Lorem.sentence(6), status: statuses.sample, category: categories.sample)
+  goal = Goal.create!(title: Faker::Lorem.sentence, description: Faker::Lorem.paragraph, status: statuses.sample, category: categories.sample)
   Participation.create!(goal_id: goal.id, user_id: user.id, status: "creator")
 end
 

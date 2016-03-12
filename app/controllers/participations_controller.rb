@@ -5,8 +5,19 @@ class ParticipationsController < ApplicationController
   end
 
   def create
-    #!flag
-    redirect_to :back
+    @participation = Participation.new(participation_params)
+    if @participation.save
+      redirect_to :back, notice: 'You have requested to join this goal.'
+    else
+      redirect_to :back, notice: 'You are unable to join this goal.'
+    end
   end
+
+  private
+    def participation_params
+      puts "===================================="
+      p params
+      params.require(:participation).permit(:goal_id, :user_id, :status)
+    end
 
 end

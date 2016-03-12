@@ -10,6 +10,8 @@ class GoalsController < ApplicationController
   # GET /goals/1
   # GET /goals/1.json
   def show
+    @participation = Participation.new
+    @user = current_user
   end
 
   # GET /goals/new
@@ -31,7 +33,6 @@ class GoalsController < ApplicationController
     else
       render :new
     end
-
   end
 
   # PATCH/PUT /goals/1

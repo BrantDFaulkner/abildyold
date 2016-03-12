@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   resources :goals
   devise_for :users
 
-  resources :users do
-    resources :participations
-  end
+  # resources :users do
+  resources :participations
+  # end
 
   get 'pages/welcome'
   get 'pages/about'
