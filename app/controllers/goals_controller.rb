@@ -1,5 +1,7 @@
 class GoalsController < ApplicationController
-  before_action :set_goal, only: [:show, :edit, :update, :destroy]
+  before_action :set_goal, only: [:edit, :update, :destroy]
+  before_action :set_goal_includes, only: [:show]
+
 
   # GET /goals
   # GET /goals.json
@@ -9,8 +11,13 @@ class GoalsController < ApplicationController
 
   # GET /goals/1
   def show
-    @participation = Participation.new
+    #if currrent user !particpant && goal open for new participants
+    @request = Request.new
+    #end
     @participations = @goal.participations
+    @requests = @goal.requests
+    @goal_requested = current_user.goal_requested?(@goal.id)
+
   end
 
   # GET /goals/new
@@ -56,6 +63,10 @@ class GoalsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_goal_includes
+      @goal = Goal.includes(:participations, :requests).where(id: params[:id]).first
+    end
+
     def set_goal
       @goal = Goal.find(params[:id])
     end

@@ -5,6 +5,7 @@ class CreateGoals < ActiveRecord::Migration
       t.text :description
       t.string :status
       t.string :category
+      t.belongs_to :leader
 
       t.timestamps null: false
     end

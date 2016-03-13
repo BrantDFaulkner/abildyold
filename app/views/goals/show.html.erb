@@ -19,24 +19,32 @@
   <%= @goal.category %>
 </p>
 
-
-
-  <% @participations.each do |participation| %>
-    <div>
-      <%= participation.user.email %> |
-      <%= participation.status %>
-    </div>
-  <% end %>
-
-
-
-<%= form_for(@participation) do |f| %>
-  <%= hidden_field_tag("participation[goal_id]", @goal.id) %>
-  <%= hidden_field_tag("participation[user_id]", current_user.id) %>
-  <%= hidden_field_tag("participation[status]", "Pending Request") %>
-  <%= f.submit "Request to Join" %>
+<h1>Participants</h1>
+<% @participations.each do |participation| %>
+  <div>
+    <%= participation.user.username %> |
+    <%= participation.status %>
+  </div>
 <% end %>
 
+<% if current_user == @goal.leader %>
+  <h1>Pending Requests</h1>
+  <% @requests.pending.each do |request| %>
+    <div>
+      <%= request.user.username %> |
+      <%= link_to request.status, edit_request_path(request) %>
+    </div>
+  <% end %>
+<% else %>
+  <% if @goal_requested %>
+    <p> Your request is pending </p>
+  <% else %>
+    <%= form_for(@request) do |f| %>
+      <%= hidden_field_tag("request[goal_id]", @goal.id) %>
+      <%= f.submit "Request to Join" %>
+    <% end %>
+  <% end %>
+<% end %>
 
 
 <%= link_to 'Edit', edit_goal_path(@goal) %> |

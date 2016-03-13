@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160311184755) do
+ActiveRecord::Schema.define(version: 20160313203605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160311184755) do
     t.text     "description"
     t.string   "status"
     t.string   "category"
+    t.integer  "leader_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -36,7 +37,19 @@ ActiveRecord::Schema.define(version: 20160311184755) do
   add_index "participations", ["goal_id"], name: "index_participations_on_goal_id", using: :btree
   add_index "participations", ["user_id"], name: "index_participations_on_user_id", using: :btree
 
+  create_table "requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "goal_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "requests", ["goal_id"], name: "index_requests_on_goal_id", using: :btree
+  add_index "requests", ["user_id"], name: "index_requests_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
+    t.string   "username",               default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -56,4 +69,6 @@ ActiveRecord::Schema.define(version: 20160311184755) do
 
   add_foreign_key "participations", "goals"
   add_foreign_key "participations", "users"
+  add_foreign_key "requests", "goals"
+  add_foreign_key "requests", "users"
 end
