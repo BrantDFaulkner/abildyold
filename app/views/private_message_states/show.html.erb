@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Private messag:</strong>
+  <%= @private_message_state.private_messag %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @private_message_state.user %>
+</p>
+
+<p>
+  <strong>Action:</strong>
+  <%= @private_message_state.action %>
+</p>
+
+<%= link_to 'Edit', edit_private_message_state_path(@private_message_state) %> |
+<%= link_to 'Back', private_message_states_path %>

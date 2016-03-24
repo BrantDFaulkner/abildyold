@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @private_message_threads_user.user %>
+</p>
+
+<p>
+  <strong>Private message thread:</strong>
+  <%= @private_message_threads_user.private_message_thread %>
+</p>
+
+<%= link_to 'Edit', edit_private_message_threads_user_path(@private_message_threads_user) %> |
+<%= link_to 'Back', private_message_threads_users_path %>

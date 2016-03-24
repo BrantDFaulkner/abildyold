@@ -16,7 +16,8 @@ class GoalsController < ApplicationController
     #end
     @participations = @goal.participations
     @requests = @goal.requests
-    @goal_requested = current_user.goal_requested?(@goal.id)
+
+    @goal_requested = current_user.goal_requested?(@goal.id) if user_signed_in?
 
   end
 

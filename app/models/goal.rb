@@ -10,6 +10,19 @@ class Goal < ActiveRecord::Base
     Participation.create(goal_id: goal.id, status: "Creator", user_id: user_id)
   end
 
+  GOAL_CATEGORIES = [
+    "Business/Career",
+    "Education",
+    "Health/Fitness",
+    "Finance",
+    "Personal Development",
+    "Recreation",
+    "Relationship",
+    "Social",
+    "Spiritual"
+  ]
 
-end
+
+end#Goal
+
 

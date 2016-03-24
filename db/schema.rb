@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313203605) do
+ActiveRecord::Schema.define(version: 20160324183817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,32 @@ ActiveRecord::Schema.define(version: 20160313203605) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "message_thread_users", force: :cascade do |t|
+    t.integer  "message_thread_id"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "message_thread_users", ["message_thread_id"], name: "index_message_thread_users_on_message_thread_id", using: :btree
+  add_index "message_thread_users", ["user_id"], name: "index_message_thread_users_on_user_id", using: :btree
+
+  create_table "message_threads", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "message_thread_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "messages", ["message_thread_id"], name: "index_messages_on_message_thread_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "participations", force: :cascade do |t|
     t.integer  "goal_id"
@@ -67,6 +93,10 @@ ActiveRecord::Schema.define(version: 20160313203605) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "message_thread_users", "message_threads"
+  add_foreign_key "message_thread_users", "users"
+  add_foreign_key "messages", "message_threads"
+  add_foreign_key "messages", "users"
   add_foreign_key "participations", "goals"
   add_foreign_key "participations", "users"
   add_foreign_key "requests", "goals"

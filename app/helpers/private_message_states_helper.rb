@@ -1,0 +1,2 @@
+module PrivateMessageStatesHelper
+end

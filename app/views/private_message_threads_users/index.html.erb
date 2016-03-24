@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Private Message Threads Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Private message thread</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @private_message_threads_users.each do |private_message_threads_user| %>
+      <tr>
+        <td><%= private_message_threads_user.user %></td>
+        <td><%= private_message_threads_user.private_message_thread %></td>
+        <td><%= link_to 'Show', private_message_threads_user %></td>
+        <td><%= link_to 'Edit', edit_private_message_threads_user_path(private_message_threads_user) %></td>
+        <td><%= link_to 'Destroy', private_message_threads_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Private message threads user', new_private_message_threads_user_path %>

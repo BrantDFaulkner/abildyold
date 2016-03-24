@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Private Message States</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Private messag</th>
+      <th>User</th>
+      <th>Action</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @private_message_states.each do |private_message_state| %>
+      <tr>
+        <td><%= private_message_state.private_messag %></td>
+        <td><%= private_message_state.user %></td>
+        <td><%= private_message_state.action %></td>
+        <td><%= link_to 'Show', private_message_state %></td>
+        <td><%= link_to 'Edit', edit_private_message_state_path(private_message_state) %></td>
+        <td><%= link_to 'Destroy', private_message_state, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Private message state', new_private_message_state_path %>
