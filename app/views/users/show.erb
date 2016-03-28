@@ -1,7 +1,11 @@
 
 <h1><%= @user.username %></h1>
 
-<%= link_to "Private Message" %>
+<%= link_to "Send Message", new_message_path(:receiver_id => @user.id) %>
+<%#= form_for(@message) do |f| %>
+    <%#= hidden_field_tag("message[user_id]", @user.id) %>
+    <%#= f.submit "Send Message" %>
+<%# end %>
 <!-- <p> -->
   <!-- <strong>User:</strong> -->
   <%#= @request.user %>

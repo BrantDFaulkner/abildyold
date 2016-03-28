@@ -14,31 +14,24 @@ class MessagesController < ApplicationController
 
   # GET /messages/new
   def new
-    @message = Message.new
+    @message = current_user.create_new_message_and_thread(params[:receiver_id])
+
   end
 
   # GET /messages/1/edit
   def edit
   end
 
-  # POST /messages
-  # POST /messages.json
+
   def create
     @message = Message.new(message_params)
-
-    respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
-        format.json { render :show, status: :created, location: @message }
+        redirect_to @message, notice: 'Message was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @message.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
-  # PATCH/PUT /messages/1
-  # PATCH/PUT /messages/1.json
   def update
     respond_to do |format|
       if @message.update(message_params)
